@@ -55,6 +55,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function searchRecipes() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const results = document.getElementById('searchResults');
+        results.innerHTML = '';
+        Object.values(recipes).flat().forEach(recipe => {
+            if (recipe.title.toLowerCase().includes(searchInput)) {
+                const result = document.createElement('div');
+                result.className = 'search-result';
+                result.innerHTML = `
+                    <h3>${recipe.title}</h3>
+                    <p>${recipe.description}</p>
+                    <button data-id="${recipe.id}">View Details</button>
+                `;
+                results.appendChild(result);
+            }
+        });
+    }
+
     document.querySelectorAll('.recipe-card button').forEach(button => {
         button.addEventListener('click', () => {
             const recipeId = button.getAttribute('data-id');
@@ -78,9 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
         event.target.reset();
     });
 
+    document.getElementById('searchButton').addEventListener('click', searchRecipes);
+    document.getElementById('searchInput').addEventListener('keypress', event => {
+        if (event.key === 'Enter') {
+            searchRecipes();
+        }
+    });
+
     function handlePagination() {
         let currentPage = 1;
-        const totalPages = 3; // For simplicity, assume there are 3 pages
+        const totalPages = 5; // Adjusted for more pages
 
         function updatePagination() {
             document.querySelector('.page-number').textContent = `Page ${currentPage}`;

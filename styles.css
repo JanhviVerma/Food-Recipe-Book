@@ -27,6 +27,25 @@ header {
     padding: 40px 20px;
     border-radius: 10px;
     background-blur: 10px;
+    position: relative;
+}
+
+.header-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    z-index: 0;
+}
+
+header h1 {
+    position: relative;
+    z-index: 1;
+    font-size: 2.5em;
 }
 
 nav ul {
@@ -52,6 +71,8 @@ nav ul li a:hover {
 
 main {
     padding: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
 section {
@@ -75,6 +96,7 @@ section {
     max-width: 300px;
     cursor: pointer;
     position: relative;
+    text-align: center;
 }
 
 .recipe-card img {
@@ -115,6 +137,7 @@ section {
     margin-top: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .rating-label {
@@ -124,6 +147,7 @@ section {
 
 .rating-stars {
     display: inline-block;
+    position: relative;
 }
 
 .rating-stars::before {
@@ -140,6 +164,7 @@ section {
     margin-left: 10px;
     font-size: 16px;
     font-weight: bold;
+    color: #343a40;
 }
 
 .comments {
@@ -149,8 +174,9 @@ section {
 .comments-list {
     margin-bottom: 10px;
     padding: 10px;
-    background: #f8f9fa;
+    background: #ffffff;
     border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .comment-input {
@@ -201,6 +227,7 @@ section {
 .page-number {
     font-size: 14px;
     color: #495057;
+    font-weight: bold;
 }
 
 footer {
@@ -223,7 +250,8 @@ footer {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
-    transition: opacity 0.3s ease;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
@@ -282,8 +310,15 @@ footer {
     color: #6c757d;
 }
 
-.form-response {
+.modal-body .comments-list {
     margin-top: 20px;
-    font-size: 14px;
-    color: #28a745;
+}
+
+.modal-body .comment-input {
+    width: calc(100% - 120px);
+    margin-right: 10px;
+}
+
+.modal-body .comment-submit {
+    margin-top: 10px;
 }
