@@ -8,22 +8,21 @@
 </head>
 <body>
     <header>
-        <div class="header-background">
-            <h1>Food Recipe Book</h1>
-            <nav>
-                <ul>
-                    <li><a href="#breakfast">Breakfast</a></li>
-                    <li><a href="#lunch">Lunch</a></li>
-                    <li><a href="#dinner">Dinner</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#profile">Profile</a></li>
-                </ul>
-            </nav>
-        </div>
+        <h1>Food Recipe Book</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#recipes">Recipes</a></li>
+                <li><a href="#profile">Profile</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
-        <section id="filter">
-            <h2>Filter Recipes</h2>
+        <section id="home">
+            <h2>Welcome to the Food Recipe Book</h2>
+            <p>Discover delicious recipes, filter by categories, and manage your personal profile.</p>
+        </section>
+        <section id="recipes">
             <div class="recipe-filter">
                 <label for="categoryFilter">Category:</label>
                 <select id="categoryFilter">
@@ -32,19 +31,26 @@
                     <option value="lunch">Lunch</option>
                     <option value="dinner">Dinner</option>
                 </select>
-                <label for="ratingFilter">Minimum Rating:</label>
+
+                <label for="ratingFilter">Rating:</label>
                 <select id="ratingFilter">
                     <option value="0">All</option>
-                    <option value="1">1 Star</option>
-                    <option value="2">2 Stars</option>
-                    <option value="3">3 Stars</option>
-                    <option value="4">4 Stars</option>
+                    <option value="1">1 Star & Up</option>
+                    <option value="2">2 Stars & Up</option>
+                    <option value="3">3 Stars & Up</option>
+                    <option value="4">4 Stars & Up</option>
                     <option value="5">5 Stars</option>
                 </select>
-                <label for="ingredientFilter">Ingredients:</label>
-                <input type="text" id="ingredientFilter" placeholder="Search ingredients...">
+
+                <label for="ingredientFilter">Ingredient:</label>
+                <input type="text" id="ingredientFilter" placeholder="Search ingredient...">
+
                 <label for="prepTimeFilter">Preparation Time:</label>
-                <input type="text" id="prepTimeFilter" placeholder="e.g., 30 minutes">
+                <input type="text" id="prepTimeFilter" placeholder="Search time...">
+
+                <label for="searchBar">Search:</label>
+                <input type="text" id="searchBar" placeholder="Search recipes...">
+
                 <label for="dietaryFilter">Dietary Preferences:</label>
                 <select id="dietaryFilter">
                     <option value="all">All</option>
@@ -52,104 +58,61 @@
                     <option value="vegan">Vegan</option>
                     <option value="gluten-free">Gluten-Free</option>
                 </select>
-                <label for="searchBar">Search:</label>
-                <input type="text" id="searchBar" placeholder="Search recipes...">
             </div>
-        </section>
-        <section id="breakfast">
-            <h2>Breakfast Recipes</h2>
-            <div class="recipe-container"></div>
-        </section>
-        <section id="lunch">
-            <h2>Lunch Recipes</h2>
-            <div class="recipe-container"></div>
-        </section>
-        <section id="dinner">
-            <h2>Dinner Recipes</h2>
-            <div class="recipe-container"></div>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <form id="contactForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" rows="4" required></textarea>
-                <button type="submit">Send</button>
-                <p id="formResponse"></p>
-            </form>
-        </section>
-        <section id="profile">
-            <h2>User Profile</h2>
-            <div id="profilePage">
-                <h3>Profile Information</h3>
-                <form id="profileForm">
-                    <label for="profileName">Name:</label>
-                    <input type="text" id="profileName" required>
-                    <label for="profileEmail">Email:</label>
-                    <input type="email" id="profileEmail" required>
-                    <label for="profilePassword">New Password:</label>
-                    <input type="password" id="profilePassword">
-                    <button type="submit">Update Profile</button>
-                    <p id="profileResponse"></p>
-                </form>
+
+            <section class="recipe-container" id="recipeContainer">
+                <!-- Recipes will be dynamically inserted here -->
+            </section>
+
+            <div class="modal" id="recipeModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="recipeTitle"></h2>
+                        <button id="closeModal">Close</button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="recipeImage" src="" alt="Recipe Image">
+                        <p id="recipeDescription"></p>
+                        <div class="rating">
+                            <div class="rating-stars" id="ratingStars"></div>
+                            <span class="rating-value" id="ratingValue"></span>
+                        </div>
+                        <p><strong>Ingredients:</strong></p>
+                        <ul id="recipeIngredients"></ul>
+                        <p><strong>Preparation Time:</strong> <span id="prepTime"></span></p>
+                        <div class="comments">
+                            <h3>Comments</h3>
+                            <div id="commentsList"></div>
+                            <textarea id="commentInput" class="comment-input" placeholder="Add a comment..."></textarea>
+                            <button id="commentSubmit" class="comment-submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="loginForm">
-                <h3>Login</h3>
-                <form>
+
+            <section id="profilePage">
+                <h2>Profile</h2>
+                <form id="authForm">
+                    <h3>Login</h3>
                     <label for="loginEmail">Email:</label>
                     <input type="email" id="loginEmail" required>
                     <label for="loginPassword">Password:</label>
                     <input type="password" id="loginPassword" required>
-                    <button type="button" id="toggleLoginPassword">Show</button>
+                    <button type="button" id="toggleLoginPassword">Show Password</button>
                     <button type="submit">Login</button>
-                    <p id="loginResponse"></p>
-                </form>
-            </div>
-            <div id="registerForm">
-                <h3>Register</h3>
-                <form>
-                    <label for="registerName">Name:</label>
-                    <input type="text" id="registerName" required>
+                    <div id="loginResponse"></div>
+
+                    <h3>Register</h3>
                     <label for="registerEmail">Email:</label>
                     <input type="email" id="registerEmail" required>
                     <label for="registerPassword">Password:</label>
                     <input type="password" id="registerPassword" required>
-                    <button type="button" id="toggleRegisterPassword">Show</button>
+                    <button type="button" id="toggleRegisterPassword">Show Password</button>
                     <button type="submit">Register</button>
-                    <p id="registerResponse"></p>
+                    <div id="registerResponse"></div>
                 </form>
-            </div>
+            </section>
         </section>
-        <div id="recipeModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div class="modal-header">
-                    <h2 id="modalTitle"></h2>
-                </div>
-                <div class="modal-body">
-                    <img id="modalImage" src="" alt="">
-                    <p id="modalDescription"></p>
-                    <p id="modalIngredients"></p>
-                    <p id="modalPrepTime"></p>
-                    <p id="modalInstructions"></p>
-                    <p id="modalNutritionalInfo"></p>
-                    <div class="rating">
-                        <span class="rating-label">Rating:</span>
-                        <span class="rating-stars" data-recipe=""><!-- Star ratings here --></span>
-                        <span class="rating-value"></span>
-                    </div>
-                    <div class="comments">
-                        <h3>User Reviews</h3>
-                        <div class="comments-list"></div>
-                        <textarea id="commentInput" class="comment-input" placeholder="Add a review..."></textarea>
-                        <button id="commentSubmit" class="comment-submit">Submit Review</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
     <footer>
         <p>&copy; 2024 Food Recipe Book. All rights reserved.</p>
