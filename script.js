@@ -30,6 +30,88 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add more recipe objects here
     ];
 
+    const shoppingList = document.getElementById('shopping-list-items');
+    const newItemInput = document.getElementById('new-item');
+    const addItemBtn = document.getElementById('add-item-btn');
+    const clearCompletedBtn = document.getElementById('clear-completed');
+
+    addItemBtn.addEventListener('click', addShoppingListItem);
+    clearCompletedBtn.addEventListener('click', clearCompletedItems);
+    document.getElementById('generate-meal-plan').addEventListener('click', generateMealPlan);
+
+    function addShoppingListItem() {
+        const itemText = newItemInput.value.trim();
+        if (itemText) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <input type="checkbox">
+                <span>${itemText}</span>
+                <button class="delete-item">Delete</button>
+            `;
+            shoppingList.appendChild(li);
+            newItemInput.value = '';
+
+            li.querySelector('.delete-item').addEventListener('click', () => {
+                li.remove();
+            });
+        }
+    }
+
+    function clearCompletedItems() {
+        const completedItems = shoppingList.querySelectorAll('input[type="checkbox"]:checked');
+        completedItems.forEach(item => item.closest('li').remove());
+    }
+
+    // Calendar Widget
+    const calendarEl = document.getElementById('calendar-widget');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: [
+            // Sample events, replace with actual meal plan data
+            {
+                title: 'Spaghetti Carbonara',
+                start: '2024-08-15'
+            },
+            {
+                title: 'Grilled Chicken Salad',
+                start: '2024-08-17'
+            }
+        ],
+        eventClick: function(info) {
+            alert('Meal: ' + info.event.title);
+        }
+    });
+    calendar.render();
+
+    // Extend generateMealPlan function to update calendar
+    function generateMealPlan() {
+        const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        weeklyMeals.innerHTML = '';
+        calendar.removeAllEvents();
+
+        daysOfWeek.forEach((day, index) => {
+            const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+            const mealItem = document.createElement('li');
+            mealItem.textContent = `${day}: ${randomRecipe.title}`;
+            weeklyMeals.appendChild(mealItem);
+
+            // Add event to calendar
+            const date = new Date();
+            date.setDate(date.getDate() + index);
+            calendar.addEvent({
+                title: randomRecipe.title,
+                start: date
+            });
+        });
+
+        calendar.render();
+    }
+
     function displayRecipes(start, count) {
         const recipesToShow = recipes.slice(start, start + count);
         recipesToShow.forEach(recipe => {
