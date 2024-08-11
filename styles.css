@@ -412,9 +412,7 @@ footer {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Previous CSS styles remain the same */
-
-/* New styles for Shopping List */
+/* Shopping List styles */
 .shopping-list-container {
     background-color: #fff;
     border-radius: 10px;
@@ -505,8 +503,8 @@ footer {
     font-weight: bold;
 }
 
-/* Responsive design updates */
-@media screen and (max-width: 768px) {
+/* Additional responsive design updates */
+@media screen and (max-width: 480px) {
     .add-item-form {
         flex-direction: column;
     }
