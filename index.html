@@ -15,60 +15,75 @@
                     <li><a href="#breakfast">Breakfast</a></li>
                     <li><a href="#lunch">Lunch</a></li>
                     <li><a href="#dinner">Dinner</a></li>
-                    <li><a href="#desserts">Desserts</a></li>
-                    <li><a href="#snacks">Snacks</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-
     <main>
-        <section id="search">
-            <input type="text" id="search-bar" placeholder="Search recipes...">
-            <button id="search-button">Search</button>
-        </section>
-
         <section id="breakfast">
             <h2>Breakfast Recipes</h2>
-            <div class="recipe-card" data-recipe="pancakes">
-                <img src="images/pancakes.jpg" alt="Pancakes">
-                <h3>Pancakes</h3>
-                <p>Fluffy pancakes made with love. Perfect for a weekend brunch.</p>
-                <button class="view-recipe">View Recipe</button>
-                <div class="rating">
-                    <span class="rating-label">Rating:</span>
-                    <div class="rating-stars" data-recipe="pancakes"></div>
-                    <span class="rating-value" data-recipe="pancakes">0</span>
-                </div>
-                <div class="comments">
-                    <h4>Comments:</h4>
-                    <div class="comments-list" data-recipe="pancakes"></div>
-                    <textarea class="comment-input" placeholder="Add a comment..."></textarea>
-                    <button class="comment-submit" data-recipe="pancakes">Submit Comment</button>
-                </div>
-            </div>
-            <!-- More recipe cards... -->
-            <div class="pagination">
-                <button class="prev-page">Previous</button>
-                <span class="page-number">Page 1</span>
-                <button class="next-page">Next</button>
-            </div>
+            <div class="recipe-container"></div>
         </section>
-
-        <!-- Similar structure for Lunch, Dinner, Desserts, and Snacks -->
-
-        <div id="recipe-modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="recipe-details"></div>
-            </div>
+        <section id="lunch">
+            <h2>Lunch Recipes</h2>
+            <div class="recipe-container"></div>
+        </section>
+        <section id="dinner">
+            <h2>Dinner Recipes</h2>
+            <div class="recipe-container"></div>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                
+                <button type="submit">Send Message</button>
+            </form>
+            <div id="formResponse" class="form-response"></div>
+        </section>
+        <div class="pagination">
+            <button class="prev-page">Previous</button>
+            <span class="page-number">Page 1</span>
+            <button class="next-page">Next</button>
         </div>
     </main>
-
     <footer>
-        <p>&copy; 2024 Food Recipe Book. All rights reserved.</p>
+        <p>&copy; 2024 Food Recipe Book</p>
     </footer>
 
-    <script src="script.js"></script>
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Recipe Title</h2>
+                <div class="rating">
+                    <span class="rating-label">Rating:</span>
+                    <div class="rating-stars" data-recipe="recipeId"></div>
+                    <span class="rating-value">4.5</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <img src="" alt="Recipe Image" id="modalImage">
+                <p id="modalDescription">Description of the recipe.</p>
+                <div class="comments">
+                    <div class="comments-list">
+                        <!-- Comments will be dynamically added here -->
+                    </div>
+                    <textarea id="commentInput" class="comment-input" placeholder="Add a comment..."></textarea>
+                    <button id="commentSubmit" class="comment-submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
 </body>
 </html>

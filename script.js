@@ -1,154 +1,110 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const recipeButtons = document.querySelectorAll('.view-recipe');
-    const modal = document.getElementById('recipe-modal');
-    const modalContent = document.getElementById('recipe-details');
-    const closeModal = document.getElementsByClassName('close')[0];
-    const searchButton = document.getElementById('search-button');
-    const searchBar = document.getElementById('search-bar');
-    const recipeSections = document.querySelectorAll('section');
-    const ratingStars = document.querySelectorAll('.rating-stars');
-    const commentSubmitButtons = document.querySelectorAll('.comment-submit');
-    const prevPageButton = document.querySelector('.prev-page');
-    const nextPageButton = document.querySelector('.next-page');
-    const pageNumberSpan = document.querySelector('.page-number');
-
-    let currentPage = 1;
-    const recipesPerPage = 2;
-
+document.addEventListener('DOMContentLoaded', () => {
     const recipes = {
-        pancakes: {
-            title: "Pancakes",
-            ingredients: ["1 cup flour", "2 tbsp sugar", "1 tsp baking powder", "1 cup milk", "1 egg", "Butter for cooking"],
-            instructions: "Mix all ingredients until smooth. Heat a non-stick pan over medium heat and add butter. Pour 1/4 cup of batter onto the pan. Cook until bubbles form, then flip and cook the other side until golden brown.",
-            prepTime: "10 minutes",
-            servings: "4"
-        },
-        omelette: {
-            title: "Omelette",
-            ingredients: ["2 eggs", "1/4 cup cheese", "1/4 cup diced veggies", "Salt and pepper to taste", "Butter for cooking"],
-            instructions: "Whisk eggs with salt and pepper. Heat a pan over medium heat and add butter. Pour eggs into the pan and cook until they start to set. Add cheese and veggies, then fold the omelette in half. Cook until the cheese is melted.",
-            prepTime: "15 minutes",
-            servings: "2"
-        },
-        // Additional recipes...
+        'breakfast': [
+            { id: 'pancakes', title: 'Pancakes', image: 'images/pancakes.jpg', description: 'Fluffy and delicious pancakes with maple syrup.', rating: 4.5 },
+            { id: 'waffles', title: 'Waffles', image: 'images/waffles.jpg', description: 'Crispy waffles served with fresh fruit.', rating: 4.2 }
+        ],
+        'lunch': [
+            { id: 'caesar-salad', title: 'Caesar Salad', image: 'images/caesar-salad.jpg', description: 'Classic Caesar salad with creamy dressing.', rating: 4.0 },
+            { id: 'grilled-cheese', title: 'Grilled Cheese', image: 'images/grilled-cheese.jpg', description: 'Warm and gooey grilled cheese sandwich.', rating: 4.7 }
+        ],
+        'dinner': [
+            { id: 'spaghetti', title: 'Spaghetti', image: 'images/spaghetti.jpg', description: 'Spaghetti with marinara sauce and meatballs.', rating: 4.8 },
+            { id: 'stir-fry', title: 'Stir Fry', image: 'images/stir-fry.jpg', description: 'Vegetable stir fry with tofu.', rating: 4.3 }
+        ]
     };
 
-    function showRecipe(recipeId) {
-        const recipe = recipes[recipeId];
-        if (recipe) {
-            modalContent.innerHTML = `
-                <h2>${recipe.title}</h2>
-                <h3>Ingredients:</h3>
-                <ul>${recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('')}</ul>
-                <h3>Instructions:</h3>
-                <p>${recipe.instructions}</p>
-                <p><strong>Preparation Time:</strong> ${recipe.prepTime}</p>
-                <p><strong>Servings:</strong> ${recipe.servings}</p>
+    function renderRecipes(category) {
+        const container = document.querySelector(`#${category} .recipe-container`);
+        container.innerHTML = '';
+        recipes[category].forEach(recipe => {
+            const card = document.createElement('div');
+            card.className = 'recipe-card';
+            card.innerHTML = `
+                <img src="${recipe.image}" alt="${recipe.title}">
+                <h3>${recipe.title}</h3>
+                <p>${recipe.description}</p>
+                <button data-id="${recipe.id}">View Details</button>
             `;
-            modal.style.display = 'block';
-        }
-    }
-
-    function updatePagination() {
-        pageNumberSpan.textContent = `Page ${currentPage}`;
-        prevPageButton.disabled = currentPage === 1;
-        nextPageButton.disabled = currentPage >= Math.ceil(recipeSections.length / recipesPerPage);
-    }
-
-    function filterRecipes() {
-        recipeSections.forEach(section => {
-            const cards = section.querySelectorAll('.recipe-card');
-            cards.forEach((card, index) => {
-                if (index < (currentPage - 1) * recipesPerPage || index >= currentPage * recipesPerPage) {
-                    card.style.display = 'none';
-                } else {
-                    card.style.display = '';
-                }
-            });
+            container.appendChild(card);
         });
     }
 
-    function handleRating(recipeId, rating) {
-        const ratingValue = document.querySelector(`.rating-value[data-recipe="${recipeId}"]`);
-        ratingValue.textContent = rating;
+    function openModal(recipe) {
+        document.getElementById('modalTitle').textContent = recipe.title;
+        document.getElementById('modalImage').src = recipe.image;
+        document.getElementById('modalDescription').textContent = recipe.description;
+        document.querySelector('.rating-stars').setAttribute('data-recipe', recipe.id);
+        document.querySelector('.rating-value').textContent = recipe.rating;
+        document.getElementById('recipeModal').style.display = 'block';
     }
 
-    function handleCommentSubmit(recipeId) {
-        const commentInput = document.querySelector(`.comment-input[data-recipe="${recipeId}"]`);
-        const commentsList = document.querySelector(`.comments-list[data-recipe="${recipeId}"]`);
+    function closeModal() {
+        document.getElementById('recipeModal').style.display = 'none';
+    }
+
+    function submitComment() {
+        const commentInput = document.getElementById('commentInput');
+        const commentList = document.querySelector('.comments-list');
         if (commentInput.value.trim()) {
-            const commentElement = document.createElement('p');
-            commentElement.textContent = commentInput.value;
-            commentsList.appendChild(commentElement);
+            const comment = document.createElement('div');
+            comment.className = 'comment';
+            comment.textContent = commentInput.value;
+            commentList.appendChild(comment);
             commentInput.value = '';
         }
     }
 
-    recipeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const recipeId = this.parentElement.getAttribute('data-recipe');
-            showRecipe(recipeId);
+    document.querySelectorAll('.recipe-card button').forEach(button => {
+        button.addEventListener('click', () => {
+            const recipeId = button.getAttribute('data-id');
+            const recipe = Object.values(recipes).flat().find(r => r.id === recipeId);
+            openModal(recipe);
         });
     });
 
-    closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+    document.querySelector('.close').addEventListener('click', closeModal);
+    window.addEventListener('click', event => {
+        if (event.target === document.getElementById('recipeModal')) {
+            closeModal();
         }
     });
 
-    searchButton.addEventListener('click', function() {
-        const searchTerm = searchBar.value.toLowerCase();
-        recipeSections.forEach(section => {
-            const cards = section.querySelectorAll('.recipe-card');
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
+    document.getElementById('commentSubmit').addEventListener('click', submitComment);
+
+    document.getElementById('contactForm').addEventListener('submit', event => {
+        event.preventDefault();
+        document.getElementById('formResponse').textContent = 'Thank you for your message!';
+        event.target.reset();
     });
 
-    ratingStars.forEach(stars => {
-        stars.addEventListener('click', function(event) {
-            const recipeId = this.getAttribute('data-recipe');
-            const rating = event.target.getAttribute('data-value');
-            if (rating) {
-                handleRating(recipeId, rating);
+    function handlePagination() {
+        let currentPage = 1;
+        const totalPages = 3; // For simplicity, assume there are 3 pages
+
+        function updatePagination() {
+            document.querySelector('.page-number').textContent = `Page ${currentPage}`;
+        }
+
+        document.querySelector('.prev-page').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
             }
         });
-    });
 
-    commentSubmitButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const recipeId = this.getAttribute('data-recipe');
-            handleCommentSubmit(recipeId);
+        document.querySelector('.next-page').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+            }
         });
-    });
 
-    prevPageButton.addEventListener('click', function() {
-        if (currentPage > 1) {
-            currentPage--;
-            updatePagination();
-            filterRecipes();
-        }
-    });
+        updatePagination();
+    }
 
-    nextPageButton.addEventListener('click', function() {
-        if (currentPage < Math.ceil(recipeSections.length / recipesPerPage)) {
-            currentPage++;
-            updatePagination();
-            filterRecipes();
-        }
-    });
-
-    updatePagination();
-    filterRecipes();
+    handlePagination();
+    renderRecipes('breakfast');
+    renderRecipes('lunch');
+    renderRecipes('dinner');
 });
