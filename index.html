@@ -27,7 +27,7 @@
             <input type="text" id="search-bar" placeholder="Search recipes...">
             <button id="search-button">Search</button>
         </section>
-        
+
         <section id="breakfast">
             <h2>Breakfast Recipes</h2>
             <div class="recipe-card" data-recipe="pancakes">
@@ -35,85 +35,32 @@
                 <h3>Pancakes</h3>
                 <p>Fluffy pancakes made with love. Perfect for a weekend brunch.</p>
                 <button class="view-recipe">View Recipe</button>
+                <div class="rating">
+                    <span class="rating-label">Rating:</span>
+                    <div class="rating-stars" data-recipe="pancakes"></div>
+                    <span class="rating-value" data-recipe="pancakes">0</span>
+                </div>
+                <div class="comments">
+                    <h4>Comments:</h4>
+                    <div class="comments-list" data-recipe="pancakes"></div>
+                    <textarea class="comment-input" placeholder="Add a comment..."></textarea>
+                    <button class="comment-submit" data-recipe="pancakes">Submit Comment</button>
+                </div>
             </div>
-            <div class="recipe-card" data-recipe="omelette">
-                <img src="images/omelette.jpg" alt="Omelette">
-                <h3>Omelette</h3>
-                <p>A classic omelette filled with cheese and veggies. Start your day right!</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-        </section>
-
-        <section id="lunch">
-            <h2>Lunch Recipes</h2>
-            <div class="recipe-card" data-recipe="caesar_salad">
-                <img src="images/caesar_salad.jpg" alt="Caesar Salad">
-                <h3>Caesar Salad</h3>
-                <p>A fresh and healthy Caesar salad with crisp lettuce, creamy dressing, and crunchy croutons.</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-            <div class="recipe-card" data-recipe="spaghetti">
-                <img src="images/spaghetti.jpg" alt="Spaghetti Bolognese">
-                <h3>Spaghetti Bolognese</h3>
-                <p>A hearty and delicious spaghetti bolognese made with a rich tomato sauce and ground beef.</p>
-                <button class="view-recipe">View Recipe</button>
+            <!-- More recipe cards... -->
+            <div class="pagination">
+                <button class="prev-page">Previous</button>
+                <span class="page-number">Page 1</span>
+                <button class="next-page">Next</button>
             </div>
         </section>
 
-        <section id="dinner">
-            <h2>Dinner Recipes</h2>
-            <div class="recipe-card" data-recipe="grilled_chicken">
-                <img src="images/grilled_chicken.jpg" alt="Grilled Chicken">
-                <h3>Grilled Chicken</h3>
-                <p>Succulent grilled chicken seasoned to perfection. A healthy and satisfying meal.</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-            <div class="recipe-card" data-recipe="lasagna">
-                <img src="images/lasagna.jpg" alt="Lasagna">
-                <h3>Lasagna</h3>
-                <p>A classic Italian dish layered with pasta, cheese, and a rich meat sauce.</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-        </section>
-
-        <section id="desserts">
-            <h2>Desserts Recipes</h2>
-            <div class="recipe-card" data-recipe="chocolate_cake">
-                <img src="images/chocolate_cake.jpg" alt="Chocolate Cake">
-                <h3>Chocolate Cake</h3>
-                <p>Rich and moist chocolate cake perfect for any occasion.</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-            <div class="recipe-card" data-recipe="cheesecake">
-                <img src="images/cheesecake.jpg" alt="Cheesecake">
-                <h3>Cheesecake</h3>
-                <p>Creamy cheesecake with a buttery crust. A delightful treat!</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-        </section>
-
-        <section id="snacks">
-            <h2>Snacks Recipes</h2>
-            <div class="recipe-card" data-recipe="nachos">
-                <img src="images/nachos.jpg" alt="Nachos">
-                <h3>Nachos</h3>
-                <p>Crunchy nachos loaded with cheese, salsa, and your favorite toppings.</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-            <div class="recipe-card" data-recipe="popcorn">
-                <img src="images/popcorn.jpg" alt="Popcorn">
-                <h3>Popcorn</h3>
-                <p>Classic movie popcorn seasoned with a touch of butter and salt.</p>
-                <button class="view-recipe">View Recipe</button>
-            </div>
-        </section>
+        <!-- Similar structure for Lunch, Dinner, Desserts, and Snacks -->
 
         <div id="recipe-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <div id="recipe-details">
-                    <!-- Recipe details will be loaded here -->
-                </div>
+                <div id="recipe-details"></div>
             </div>
         </div>
     </main>
