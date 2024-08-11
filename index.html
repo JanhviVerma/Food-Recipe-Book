@@ -16,6 +16,7 @@
                     <li><a href="#lunch">Lunch</a></li>
                     <li><a href="#dinner">Dinner</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="#profile">Profile</a></li>
                 </ul>
             </nav>
         </div>
@@ -23,22 +24,37 @@
     <main>
         <section id="filter">
             <h2>Filter Recipes</h2>
-            <label for="categoryFilter">Category:</label>
-            <select id="categoryFilter">
-                <option value="all">All</option>
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-            </select>
-            <label for="ratingFilter">Minimum Rating:</label>
-            <select id="ratingFilter">
-                <option value="0">All</option>
-                <option value="1">1 Star</option>
-                <option value="2">2 Stars</option>
-                <option value="3">3 Stars</option>
-                <option value="4">4 Stars</option>
-                <option value="5">5 Stars</option>
-            </select>
+            <div class="recipe-filter">
+                <label for="categoryFilter">Category:</label>
+                <select id="categoryFilter">
+                    <option value="all">All</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                </select>
+                <label for="ratingFilter">Minimum Rating:</label>
+                <select id="ratingFilter">
+                    <option value="0">All</option>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <label for="ingredientFilter">Ingredients:</label>
+                <input type="text" id="ingredientFilter" placeholder="Search ingredients...">
+                <label for="prepTimeFilter">Preparation Time:</label>
+                <input type="text" id="prepTimeFilter" placeholder="e.g., 30 minutes">
+                <label for="dietaryFilter">Dietary Preferences:</label>
+                <select id="dietaryFilter">
+                    <option value="all">All</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="gluten-free">Gluten-Free</option>
+                </select>
+                <label for="searchBar">Search:</label>
+                <input type="text" id="searchBar" placeholder="Search recipes...">
+            </div>
         </section>
         <section id="breakfast">
             <h2>Breakfast Recipes</h2>
@@ -65,6 +81,48 @@
                 <p id="formResponse"></p>
             </form>
         </section>
+        <section id="profile">
+            <h2>User Profile</h2>
+            <div id="profilePage">
+                <h3>Profile Information</h3>
+                <form id="profileForm">
+                    <label for="profileName">Name:</label>
+                    <input type="text" id="profileName" required>
+                    <label for="profileEmail">Email:</label>
+                    <input type="email" id="profileEmail" required>
+                    <label for="profilePassword">New Password:</label>
+                    <input type="password" id="profilePassword">
+                    <button type="submit">Update Profile</button>
+                    <p id="profileResponse"></p>
+                </form>
+            </div>
+            <div id="loginForm">
+                <h3>Login</h3>
+                <form>
+                    <label for="loginEmail">Email:</label>
+                    <input type="email" id="loginEmail" required>
+                    <label for="loginPassword">Password:</label>
+                    <input type="password" id="loginPassword" required>
+                    <button type="button" id="toggleLoginPassword">Show</button>
+                    <button type="submit">Login</button>
+                    <p id="loginResponse"></p>
+                </form>
+            </div>
+            <div id="registerForm">
+                <h3>Register</h3>
+                <form>
+                    <label for="registerName">Name:</label>
+                    <input type="text" id="registerName" required>
+                    <label for="registerEmail">Email:</label>
+                    <input type="email" id="registerEmail" required>
+                    <label for="registerPassword">Password:</label>
+                    <input type="password" id="registerPassword" required>
+                    <button type="button" id="toggleRegisterPassword">Show</button>
+                    <button type="submit">Register</button>
+                    <p id="registerResponse"></p>
+                </form>
+            </div>
+        </section>
         <div id="recipeModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -74,6 +132,10 @@
                 <div class="modal-body">
                     <img id="modalImage" src="" alt="">
                     <p id="modalDescription"></p>
+                    <p id="modalIngredients"></p>
+                    <p id="modalPrepTime"></p>
+                    <p id="modalInstructions"></p>
+                    <p id="modalNutritionalInfo"></p>
                     <div class="rating">
                         <span class="rating-label">Rating:</span>
                         <span class="rating-stars" data-recipe=""><!-- Star ratings here --></span>
