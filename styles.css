@@ -75,6 +75,22 @@ main {
     margin: auto;
 }
 
+#filter {
+    margin-bottom: 20px;
+}
+
+#filter label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+#filter select {
+    margin-right: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
 section {
     margin-bottom: 40px;
 }
@@ -321,4 +337,21 @@ footer {
 
 .modal-body .comment-submit {
     margin-top: 10px;
+}
+
+/* New styles */
+#recipeModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipe-filter {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.recipe-filter select {
+    margin-left: 10px;
 }
